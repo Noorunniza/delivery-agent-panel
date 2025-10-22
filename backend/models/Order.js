@@ -70,6 +70,7 @@ const orderSchema = new mongoose.Schema({
     ],
     default: 'Waiting for Acceptance'
   },
+  
 
   estimatedDeliveryTime: { type: String, default: null },
   deliveredAt: { type: Date, default: null }, // ✅ Add this

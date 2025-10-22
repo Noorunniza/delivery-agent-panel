@@ -7,11 +7,7 @@ const DeliveryAgent = require('../models/DeliveryAgent');
 const auth = require('../middleware/auth');
 
 // Controller functions
-const {
-  getAssignedOrders,
-  updateAgentOrderStatus,
-  uploadDeliveryProof
-} = require('../controllers/deliveryController');
+const { getAssignedOrders, updateAgentOrderStatus, uploadDeliveryProof } = require('../controllers/deliveryController');
 
 // ✅ Configure multer for proof image upload
 const storage = multer.diskStorage({
@@ -62,15 +58,13 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// 📦 Get assigned orders
+// 📦 Get assigned orders (includes declined orders for this agent)
 router.get('/orders', auth, getAssignedOrders);
 
-// 🔁 Update delivery status (progress bar updates, accept/decline)
+// 🔁 Update delivery status (accept/decline/progress)
 router.put('/update-status/:id', auth, updateAgentOrderStatus);
 
 // 🖼️ Upload delivery proof (image + optional note)
-// ✅ NEW (Correct method to match frontend PUT)
 router.put('/upload-proof/:id', auth, upload.single('proofImage'), uploadDeliveryProof);
-
 
 module.exports = router;
